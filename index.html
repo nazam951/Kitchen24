@@ -209,11 +209,13 @@
             }
         }
 
-        function confirmOnWhatsApp() {
-            const name = document.getElementById('cust_name').value;
-            const address = document.getElementById('cust_address').value;
-            const gps = document.getElementById('gps_coords').value;
-            const myNumber = "918801712328";
+        // Create a clickable Google Maps Link
+let mapsLink = "Not pinned";
+if (gps) {
+    // This removes spaces and creates the URL
+    const cleanGps = gps.replace(/\s/g, ''); 
+    mapsLink = `https://www.google.com/maps?q=${cleanGps}`;
+}
 
             if (!name || !address) {
                 alert("Please enter your name and address first.");
