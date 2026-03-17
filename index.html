@@ -1,106 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitchen24 | Always Fresh</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        :root { --primary: #2d5a27; --dark: #1a1a1a; --light: #f9f9f9; --accent: #d32f2f; --wa: #25D366; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); scroll-behavior: smooth; }
-        .hero { height: 60vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 20px; }
-        .section { padding: 40px 20px; max-width: 900px; margin: auto; text-align: center; }
-        .week-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 20px 0; }
-        .day-card { padding: 15px; border: 1px solid #ddd; border-radius: 12px; background: white; }
-        .friday-feast { border: 2px solid var(--accent); background: #fff5f5; position: relative; }
-        .feast-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; font-weight: bold; }
-        .checkout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left; }
-        .form-box { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        input, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        .btn-loc { width: 100%; padding: 12px; border: 1px dashed var(--primary); background: #f0f7ef; color: var(--primary); cursor: pointer; border-radius: 8px; font-weight: 600; }
-        .payment-card { background: var(--dark); color: white; padding: 30px; border-radius: 15px; text-align: center; }
-        .price { font-size: 3rem; font-weight: 800; margin: 10px 0; }
-        .btn-pay { display: block; background: var(--primary); color: white; text-decoration: none; padding: 15px; border-radius: 8px; font-weight: 700; margin-bottom: 10px; }
-        .btn-wa { width: 100%; padding: 15px; border: none; border-radius: 8px; background: var(--wa); color: white; font-weight: 700; cursor: pointer; }
-    </style>
-</head>
-<body>
+<div class="payment-card">
+    <h3 id="statusTitle">2. Checkout</h3>
+    <div id="orderCodeBox" style="display:none; background:rgba(255,255,255,0.1); padding:10px; border-radius:8px; margin-bottom:15px;">
+        <span style="font-size:0.8rem; opacity:0.8;">YOUR ORDER CODE:</span><br>
+        <strong id="displayCode" style="font-size:1.2rem; color:#fff; letter-spacing:2px;"></strong>
+    </div>
+    
+    <div class="price">₹1</div>
+    
+    <button class="btn-pay" id="payBtn" onclick="triggerUPI()">STEP 1: PAY VIA UPI</button>
+    
+    <p style="font-size:0.8rem; margin:10px 0;">THEN</p>
+    <button class="btn-wa" onclick="sendToWA()">STEP 2: CONFIRM WHATSAPP</button>
+</div>
 
-    <header class="hero">
-        <div>
-            <h1 style="font-size: 3.5rem; margin: 0;">Always Fresh.</h1>
-            <p>Premium Dinners | Mon - Sat | Delivery before 8 PM</p>
-            <a href="#buy" style="color: white; border: 1px solid white; padding: 10px 25px; text-decoration: none; border-radius: 5px;">Join Subscription</a>
-        </div>
-    </header>
+<script>
+    let generatedCode = "";
 
-    <section class="section">
-        <h2>Weekly Menu</h2>
-        <div class="week-grid">
-            <div class="day-card">Mon<br><small>Veg</small></div>
-            <div class="day-card">Tue<br><small>Veg</small></div>
-            <div class="day-card">Wed<br><small>Veg</small></div>
-            <div class="day-card">Thu<br><small>Veg</small></div>
-            <div class="day-card friday-feast"><div class="feast-badge">SIGNATURE</div>Fri<br><small style="color:var(--accent)">Non-Veg</small></div>
-            <div class="day-card">Sat<br><small>Veg</small></div>
-        </div>
-    </section>
-
-    <section id="buy" class="section" style="background:#f0f3f0; border-top-left-radius: 30px; border-top-right-radius: 30px;">
-        <div class="checkout-grid">
-            <div class="form-box">
-                <h3>1. Delivery Details</h3>
-                <input type="text" id="custName" placeholder="Your Name">
-                <input type="tel" id="custPhone" placeholder="WhatsApp Number">
-                <textarea id="custAddr" rows="2" placeholder="Full Address"></textarea>
-                <button type="button" class="btn-loc" onclick="findMe()" id="lBtn">📍 Pin Current Location</button>
-                <input type="text" id="gpsDisplay" placeholder="GPS Coords" readonly style="background:#eee; font-size:0.7rem; margin-top:10px;">
-            </div>
-
-            <div class="payment-card">
-                <h3>2. Checkout</h3>
-                <div class="price">₹1</div>
-                <a href="upi://pay?pa=8801712328@apl&pn=Kitchen24&am=1&cu=INR&tn=Subscription" class="btn-pay">STEP 1: PAY VIA UPI</a>
-                <p style="font-size:0.8rem; margin:10px 0;">THEN</p>
-                <button class="btn-wa" onclick="sendToWA()">STEP 2: CONFIRM WHATSAPP</button>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        function findMe() {
-            const b = document.getElementById('lBtn');
-            const d = document.getElementById('gpsDisplay');
-            if (navigator.geolocation) {
-                b.innerText = "Locating...";
-                navigator.geolocation.getCurrentPosition((p) => {
-                    d.value = p.coords.latitude + "," + p.coords.longitude;
-                    b.innerText = "✅ Location Pinned";
-                }, () => {
-                    alert("Please allow location access.");
-                    b.innerText = "📍 Pin Current Location";
-                });
-            }
+    function generateCode() {
+        if (!generatedCode) {
+            generatedCode = "K24-" + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('displayCode').innerText = generatedCode;
+            document.getElementById('orderCodeBox').style.display = 'block';
+            document.getElementById('statusTitle').innerText = "Order Generated";
         }
+        return generatedCode;
+    }
 
-        function sendToWA() {
-            const n = document.getElementById('custName').value;
-            const a = document.getElementById('custAddr').value;
-            const g = document.getElementById('gpsDisplay').value;
-            const phone = "918801712328";
+    function triggerUPI() {
+        const orderID = generateCode();
+        const upiId = "8801712328@apl";
+        const amount = "1"; 
+        const note = "Kitchen24 Order " + orderID;
 
-            if(!n || !a) { alert("Fill Name and Address!"); return; }
+        const upiUrl = `upi://pay?pa=${upiId}&pn=Kitchen24&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
 
-            let gLink = g ? "https://www.google.com/maps?q=" + g : "Not Pinned";
-            
-            const msg = `*New Subscription: Kitchen24*%0A` +
-                        `*Name:* ${n}%0A` +
-                        `*Address:* ${a}%0A` +
-                        `*📍 Maps:* ${gLink}%0A%0A` +
-                        `Payment of ₹1 done! Sending screenshot next.`;
+        window.location.href = upiUrl;
 
-            window.open("https://wa.me/" + phone + "?text=" + msg, "_blank");
+        setTimeout(() => {
+            alert("If UPI apps didn't open, please pay manually to " + upiId + " with Note: " + orderID);
+        }, 2500);
+    }
+
+    function findMe() {
+        const b = document.getElementById('lBtn');
+        const d = document.getElementById('gpsDisplay');
+        if (navigator.geolocation) {
+            b.innerText = "Locating...";
+            navigator.geolocation.getCurrentPosition((p) => {
+                d.value = p.coords.latitude.toFixed(6) + "," + p.coords.longitude.toFixed(6);
+                b.innerText = "✅ Location Pinned";
+            }, () => {
+                alert("Please enable Location.");
+                b.innerText = "📍 Pin Current Location";
+            });
         }
-    </script>
-</body>
-</html>
+    }
+
+    function sendToWA() {
+        const n = document.getElementById('custName').value;
+        const a = document.getElementById('custAddr').value;
+        const g = document.getElementById('gpsDisplay').value;
+        const orderID = generatedCode || "NOT_GENERATED";
+        const phone = "918801712328";
+
+        if(!n || !a) { alert("Fill Details First!"); return; }
+
+        let gLink = g ? `https://www.google.com/maps?q=${g}` : "No Location";
+        
+        const msg = `*ORDER CONFIRMED: ${orderID}*%0A%0A` +
+                    `*Name:* ${n}%0A` +
+                    `*Address:* ${a}%0A` +
+                    `*📍 Google Maps:* ${gLink}%0A%0A` +
+                    `Payment done for ${orderID}. Sending screenshot!`;
+
+        window.open("https://wa.me/" + phone + "?text=" + msg, "_blank");
+    }
+</script>
