@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen24 | Always Fresh Dinner Subscription</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+        :root {
+            --primary: #2d5a27;
+            --dark: #1a1a1a;
+            --light: #f9f9f9;
+            --accent: #d32f2f;
+            --whatsapp: #25D366;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            scroll-behavior: smooth;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 10px 0; letter-spacing: -2px; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px; opacity: 0.9; }
+
+        /* --- Menu Section --- */
+        .section { padding: 60px 20px; max-width: 1000px; margin: auto; text-align: center; }
+        
+        .week-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+            gap: 15px; margin: 30px 0;
+        }
+        
+        .day-card {
+            padding: 20px; border: 1px solid #ddd; border-radius: 12px; background: white;
+        }
+
+        .friday-feast {
+            border: 2px solid var(--accent);
+            background: #fff5f5;
+            transform: scale(1.05);
+            position: relative;
+        }
+
+        .feast-badge {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--accent); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold;
+        }
+
+        /* --- Checkout Section --- */
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .form-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        
+        label { font-weight: 600; font-size: 0.9rem; display: block; margin-top: 15px; }
+        input, textarea {
+            width: 100%; padding: 12px; margin: 5px 0 10px;
+            border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-family: inherit;
+        }
+
+        .location-btn {
+            width: 100%; padding: 12px; border: 1px dashed var(--primary); 
+            background: #f0f7ef; color: var(--primary); cursor: pointer; 
+            border-radius: 8px; font-weight: 600; margin-top: 5px;
+        }
+
+        .payment-card {
+            background: var(--dark); color: white; padding: 30px; border-radius: 15px; text-align: center;
+        }
+
+        .price-tag { font-size: 3rem; font-weight: 800; color: #fff; margin: 10px 0; }
+        
+        .upi-btn {
+            display: block; background: var(--primary); color: white;
+            text-decoration: none; padding: 18px; border-radius: 8px;
+            font-weight: 700; font-size: 1.1rem; transition: 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .wa-btn {
+            width: 100%; padding: 18px; border: none; border-radius: 8px;
+            background: var(--whatsapp); color: white; font-weight: 700;
+            font-size: 1.1rem; cursor: pointer;
+        }
+
+        .footer { padding: 40px; font-size: 0.8rem; color: #666; }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div>
+            <div style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; font-weight: 600;">Kitchen24 Dinner Service</div>
+            <h1>Always Fresh.</h1>
+            <p>Premium chef-made dinners delivered Monday to Saturday before 8:00 PM.</p>
+            <a href="#subscribe" class="upi-btn" style="display:inline-block; padding: 15px 40px;">View Plan</a>
+        </div>
+    </header>
+
+    <section class="section">
+        <h2>The Weekly Lineup</h2>
+        <p>Expertly balanced meals. 5 Days Veg + 1 Day Friday Feast (Non-Veg).</p>
+        <div class="week-grid">
+            <div class="day-card"><strong>Mon</strong><br><small>Veg Deluxe</small></div>
+            <div class="day-card"><strong>Tue</strong><br><small>Veg Deluxe</small></div>
+            <div class="day-card"><strong>Wed</strong><br><small>Veg Deluxe</small></div>
+            <div class="day-card"><strong>Thu</strong><br><small>Veg Deluxe</small></div>
+            <div class="day-card friday-feast">
+                <div class="feast-badge">SIGNATURE</div>
+                <strong>Fri</strong><br><small style="color:var(--accent); font-weight: 600;">Friday Feast</small>
+            </div>
+            <div class="day-card"><strong>Sat</strong><br><small>Veg Deluxe</small></div>
+        </div>
+    </section>
+
+    <section class="section" id="subscribe" style="background: #ecefec; border-radius: 40px 40px 0 0;">
+        <h2>Join the Subscription</h2>
+        <p>Fill your details, pay via UPI, and confirm on WhatsApp.</p>
+        
+        <div class="checkout-grid">
+            <div class="form-box">
+                <h3>1. Delivery Details</h3>
+                
+                <label>Full Name</label>
+                <input type="text" id="cust_name" placeholder="Enter your name">
+                
+                <label>WhatsApp Number</label>
+                <input type="tel" id="cust_whatsapp" placeholder="+91">
+                
+                <label>Detailed Address</label>
+                <textarea id="cust_address" rows="2" placeholder="House No, Building, Area..."></textarea>
+                
+                <label>GPS Location</label>
+                <button type="button" class="location-btn" onclick="getLocation()" id="locBtn">
+                    📍 Pin My Current Location
+                </button>
+                <input type="text" id="gps_coords" placeholder="Lat, Long" readonly style="background: #f4f4f4; font-size: 0.8rem; border: none; margin-top: 10px;">
+            </div>
+
+            <div class="payment-card">
+                <h3>2. Checkout</h3>
+                <div class="price-tag">₹1</div>
+                <p style="opacity: 0.7; font-size: 0.9rem;">6 Dinners • Delivery before 8 PM<br>(Test Price Setting)</p>
+                
+                <a href="upi://pay?pa=8801712328@apl&pn=Kitchen24&am=1&cu=INR&tn=Subscription%20bill" class="upi-btn">
+                    STEP 1: PAY ₹1 VIA UPI
+                </a>
+                
+                <p style="margin: 15px 0; font-weight: 800; font-size: 0.8rem; color: var(--primary);">THEN</p>
+
+                <button class="wa-btn" onclick="confirmOnWhatsApp()">
+                    STEP 2: CONFIRM ON WHATSAPP
+                </button>
+                
+                <p style="font-size: 0.7rem; margin-top: 15px; opacity: 0.5;">
+                    Confirmation sends your location & details to us.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="section footer">
+        <p>&copy; 2026 Kitchen24. Dinner Service Only (Mon-Sat).<br>Guaranteed Delivery before 8 PM.</p>
+    </footer>
+
+    <script>
+        function getLocation() {
+            const btn = document.getElementById('locBtn');
+            const coordsInput = document.getElementById('gps_coords');
+
+            if (navigator.geolocation) {
+                btn.innerText = "Locating...";
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        coordsInput.value = position.coords.latitude + ", " + position.coords.longitude;
+                        btn.innerText = "✅ Location Pinned";
+                        btn.style.background = "#e8f5e9";
+                    },
+                    (error) => {
+                        alert("Please enable location permissions.");
+                        btn.innerText = "📍 Pin My Current Location";
+                    }
+                );
+            }
+        }
+
+        function confirmOnWhatsApp() {
+            const name = document.getElementById('cust_name').value;
+            const address = document.getElementById('cust_address').value;
+            const gps = document.getElementById('gps_coords').value;
+            const myNumber = "918801712328";
+
+            if (!name || !address) {
+                alert("Please enter your name and address first.");
+                return;
+            }
+
+            const text = `*New Subscription: Kitchen24*%0A%0A` +
+                         `*Name:* ${name}%0A` +
+                         `*Address:* ${address}%0A` +
+                         `*GPS:* ${gps}%0A%0A` +
+                         `I have completed the payment of ₹1. Sending screenshot next!`;
+
+            const waUrl = `https://wa.me/${myNumber}?text=${text}`;
+            window.open(waUrl, '_blank');
+        }
+    </script>
+
+</body>
+</html>
